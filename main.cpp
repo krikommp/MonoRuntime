@@ -48,6 +48,13 @@ static MonoString* Sample_5(int a, MonoObject* b)
     return mono_string_new(mono_domain_get(), str);
 }
 
+static MonoString* Sample_6(int a, MonoObject* b)
+{
+    char str[128] = { 0 };
+    sprintf_s(str, "Hello, %d", a);
+    return mono_string_new(mono_domain_get(), str);
+}
+
 int main()
 {
     // Program.cs所编译dll所在的位置
@@ -74,12 +81,12 @@ int main()
     mono_add_internal_call("MonoCsharp.MainTest::Sample_1(int,System.Collections.Generic.List`1<int>)", (void*)Sample_3);
     mono_add_internal_call("MonoCsharp.MainTest::Sample_1(int,System.Collections.Generic.Dictionary`2<int, int>)", (void*)Sample_4);
     mono_add_internal_call("MonoCsharp.MainTest::Sample_1(int,System.Collections.Generic.HashSet`1<int>)", (void*)Sample_5);
+    mono_add_internal_call("MonoCsharp.MainTest::Sample_1(int,System.Collections.Generic.HashSet`1<MonoCsharp.TestA>)", (void*)Sample_6);
 
     //调用方法
     mono_runtime_invoke(entry_point_method, NULL, NULL, NULL);
     //释放应用域
     mono_jit_cleanup(domain);
-
 
     return 0;
 }

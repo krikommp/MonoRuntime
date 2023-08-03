@@ -11,6 +11,10 @@ namespace MonoCsharp
     {
     }
 
+    public class TestA
+    {
+    }
+
     public static class MainTest
     {
         static void Main()
@@ -25,9 +29,12 @@ namespace MonoCsharp
             Dictionary<int, int> dic = new Dictionary<Int32, Int32>();
             dic.Add(1, 1);
             System.Console.WriteLine("Sample_1 = " + Sample_1(1, dic));
-            HashSet<int> set = new HashSet<Int32>();
+            HashSet<int> set = new HashSet<int>();
             set.Add(1);
             System.Console.WriteLine("Sample_1 = " + Sample_1(1, set));
+            HashSet<TestA> set1 = new HashSet<TestA>();
+            set1.Add(new TestA());
+            System.Console.WriteLine("Sample_1 = " + Sample_1(1, set1));
             System.Console.WriteLine("End");
         }
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
@@ -42,5 +49,7 @@ namespace MonoCsharp
         extern static string Sample_1(int a, Dictionary<int,int> b);
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
         extern static string Sample_1(int a, HashSet<int> b);
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        extern static string Sample_1(int a, HashSet<TestA> b);
     }
 }
